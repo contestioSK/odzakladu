@@ -7,7 +7,8 @@ const navLinks = [
   { href: "#domov", label: "Domov" },
   { href: "#o-nas", label: "O nás" },
   { href: "#sluzby", label: "Služby" },
-  { href: "#projekty", label: "Projekty" },
+  { href: "#proces", label: "Ako pracujeme" },
+  { href: "#projekty", label: "Realizácie" },
   { href: "#kontakt", label: "Kontakt" },
 ];
 
@@ -19,12 +20,12 @@ export const Header = () => {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <a href="#domov" className="flex items-center gap-3">
+          <a href="#domov" className="flex items-center gap-2">
             <div className="w-10 h-10 bg-primary rounded flex items-center justify-center">
-              <span className="text-primary-foreground font-heading font-bold text-xl">S</span>
+              <span className="text-primary-foreground font-heading font-bold text-lg">OZ</span>
             </div>
-            <span className="text-secondary-foreground font-heading font-bold text-xl hidden sm:block">
-              STAVBA<span className="text-primary">PRO</span>
+            <span className="text-secondary-foreground font-heading font-bold text-xl">
+              od<span className="text-primary">základu</span>.sk
             </span>
           </a>
 
@@ -43,12 +44,12 @@ export const Header = () => {
 
           {/* CTA Button */}
           <div className="hidden lg:flex items-center gap-4">
-            <a href="tel:+421900123456" className="flex items-center gap-2 text-secondary-foreground/80">
+            <a href="tel:+421900000000" className="flex items-center gap-2 text-secondary-foreground/80">
               <Phone className="w-4 h-4 text-primary" />
-              <span className="font-medium">+421 900 123 456</span>
+              <span className="font-medium">+421 900 000 000</span>
             </a>
             <Button asChild>
-              <a href="#kontakt">Konzultácia zdarma</a>
+              <a href="#kontakt">Chcem ponuku</a>
             </Button>
           </div>
 
@@ -84,7 +85,7 @@ export const Header = () => {
                 </a>
               ))}
               <Button asChild className="mt-4">
-                <a href="#kontakt">Konzultácia zdarma</a>
+                <a href="#kontakt">Chcem ponuku</a>
               </Button>
             </nav>
           </motion.div>

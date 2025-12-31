@@ -5,11 +5,13 @@ const footerLinks = {
     { label: "Rodinné domy", href: "#sluzby" },
     { label: "Komerčné budovy", href: "#sluzby" },
     { label: "Rekonštrukcie", href: "#sluzby" },
-    { label: "Zemné práce", href: "#sluzby" },
+    { label: "Vodojemy", href: "#sluzby" },
+    { label: "Vodovodné prípojky", href: "#sluzby" },
   ],
   spolocnost: [
     { label: "O nás", href: "#o-nas" },
-    { label: "Projekty", href: "#projekty" },
+    { label: "Ako pracujeme", href: "#proces" },
+    { label: "Realizácie", href: "#projekty" },
     { label: "Kontakt", href: "#kontakt" },
   ],
 };
@@ -23,17 +25,20 @@ export const Footer = () => {
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
           {/* Company Info */}
           <div>
-            <a href="#domov" className="flex items-center gap-3 mb-6">
+            <a href="#domov" className="flex items-center gap-2 mb-6">
               <div className="w-10 h-10 bg-primary rounded flex items-center justify-center">
-                <span className="text-primary-foreground font-heading font-bold text-xl">S</span>
+                <span className="text-primary-foreground font-heading font-bold text-lg">OZ</span>
               </div>
               <span className="font-heading font-bold text-xl text-secondary-foreground">
-                STAVBA<span className="text-primary">PRO</span>
+                od<span className="text-primary">základu</span>.sk
               </span>
             </a>
-            <p className="text-secondary-foreground/60 mb-6 leading-relaxed">
-              Profesionálna stavebná spoločnosť s viac ako 15 rokmi skúseností 
-              v oblasti výstavby a rekonštrukcií.
+            <p className="text-secondary-foreground/60 mb-4 leading-relaxed">
+              Profesionálna stavebná spoločnosť s 15-ročnou tradíciou. 
+              Ekologické stavby s prémiovými materiálmi.
+            </p>
+            <p className="text-secondary-foreground/40 text-sm">
+              Prevádzkovateľ: <strong className="text-secondary-foreground/60">MMS Stav s.r.o.</strong>
             </p>
           </div>
 
@@ -77,21 +82,31 @@ export const Footer = () => {
             <ul className="space-y-4">
               <li className="flex items-center gap-3">
                 <MapPin className="w-5 h-5 text-primary flex-shrink-0" />
-                <span>Hlavná 123, 831 01 Bratislava</span>
+                <span>Doplňte adresu</span>
               </li>
               <li className="flex items-center gap-3">
                 <Phone className="w-5 h-5 text-primary flex-shrink-0" />
-                <a href="tel:+421900123456" className="hover:text-primary transition-colors">
-                  +421 900 123 456
+                <a href="tel:+421900000000" className="hover:text-primary transition-colors">
+                  +421 900 000 000
                 </a>
               </li>
               <li className="flex items-center gap-3">
                 <Mail className="w-5 h-5 text-primary flex-shrink-0" />
-                <a href="mailto:info@stavbapro.sk" className="hover:text-primary transition-colors">
-                  info@stavbapro.sk
+                <a href="mailto:info@odzakladu.sk" className="hover:text-primary transition-colors">
+                  info@odzakladu.sk
                 </a>
               </li>
             </ul>
+          </div>
+        </div>
+
+        {/* Partners */}
+        <div className="border-t border-secondary-foreground/10 pt-8 mb-8">
+          <p className="text-center text-secondary-foreground/40 text-sm mb-4">Spolupracujeme s prémiovými dodávateľmi:</p>
+          <div className="flex flex-wrap justify-center gap-6">
+            <span className="text-secondary-foreground/60 font-medium">SIKA SLOVENSKO</span>
+            <span className="text-secondary-foreground/40">•</span>
+            <span className="text-secondary-foreground/60 font-medium">ATRO Banská Bystrica</span>
           </div>
         </div>
 
@@ -99,7 +114,7 @@ export const Footer = () => {
         <div className="border-t border-secondary-foreground/10 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-secondary-foreground/50 text-sm">
-              © {currentYear} STAVBAPRO. Všetky práva vyhradené.
+              © {currentYear} odzakladu.sk | MMS Stav s.r.o. Všetky práva vyhradené.
             </p>
             <div className="flex gap-6 text-sm">
               <a href="#" className="text-secondary-foreground/50 hover:text-primary transition-colors">

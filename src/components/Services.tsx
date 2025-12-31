@@ -1,39 +1,39 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
-import { Home, Building2, Wrench, HardHat, Paintbrush, FileText } from "lucide-react";
+import { Home, Building2, Wrench, Droplets, PipetteIcon, HardHat } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 
 const services = [
   {
     icon: Home,
     title: "Rodinné domy",
-    description: "Výstavba rodinných domov na kľúč vrátane projektu, zemných prác a finálnych úprav.",
+    description: "Výstavba rodinných domov na kľúč vrátane projektu, zemných prác a finálnych úprav s ekologickými materiálmi.",
   },
   {
     icon: Building2,
-    title: "Komerčné budovy",
-    description: "Realizácia administratívnych budov, obchodných centier a priemyselných objektov.",
+    title: "Komerčné priestory",
+    description: "Realizácia administratívnych budov, škôl, obchodných centier a verejných inštitúcií.",
   },
   {
     icon: Wrench,
     title: "Rekonštrukcie",
-    description: "Kompletné rekonštrukcie bytov, domov a komerčných priestorov podľa vašich predstáv.",
+    description: "Kompletné rekonštrukcie bytov, domov, škôl a komerčných priestorov vrátane modernizácie.",
+  },
+  {
+    icon: Droplets,
+    title: "Vodojemy",
+    description: "Výstavba a rekonštrukcia vodojemov pre vodárenské spoločnosti s certifikovanými materiálmi SIKA.",
+  },
+  {
+    icon: PipetteIcon,
+    title: "Vodovodné prípojky",
+    description: "Realizácia vodovodných a kanalizačných prípojok s kompletnou dokumentáciou.",
   },
   {
     icon: HardHat,
-    title: "Zemné práce",
-    description: "Výkopové práce, terénne úpravy, príprava stavebných pozemkov a odvoz materiálu.",
-  },
-  {
-    icon: Paintbrush,
-    title: "Interiérové práce",
-    description: "Omietky, obklady, podlahy, maľovanie a kompletné dokončovacie práce.",
-  },
-  {
-    icon: FileText,
-    title: "Projektová dokumentácia",
-    description: "Príprava kompletnej projektovej dokumentácie a vybavenie potrebných povolení.",
+    title: "Stavby na kľúč",
+    description: "Kompletná realizácia od odovzdania staveniska až po kolaudáciu – všetko vybavíme za vás.",
   },
 ];
 
@@ -56,7 +56,7 @@ export const Services = () => {
             Komplexné stavebné riešenia
           </h2>
           <p className="text-secondary-foreground/70 text-lg max-w-2xl mx-auto">
-            Ponúkame široké spektrum stavebných služieb, aby ste mali všetko pod jednou strechou.
+            Od rodinných domov po vodojemy – všetko pod jednou strechou s prémiovými materiálmi.
           </p>
         </motion.div>
 
