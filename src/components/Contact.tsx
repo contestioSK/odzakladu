@@ -8,10 +8,10 @@ import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 
 const contactInfo = [
-  { icon: MapPin, label: "Adresa", value: "Hlavná 123, 831 01 Bratislava" },
-  { icon: Phone, label: "Telefón", value: "+421 900 123 456" },
-  { icon: Mail, label: "Email", value: "info@stavbapro.sk" },
-  { icon: Clock, label: "Pracovná doba", value: "Po - Pi: 8:00 - 17:00" },
+  { icon: MapPin, label: "Adresa", value: "Doplňte adresu" },
+  { icon: Phone, label: "Telefón", value: "+421 900 000 000" },
+  { icon: Mail, label: "Email", value: "info@odzakladu.sk" },
+  { icon: Clock, label: "Pracovná doba", value: "Po - Pi: 7:00 - 16:00" },
 ];
 
 export const Contact = () => {
@@ -29,7 +29,7 @@ export const Contact = () => {
     
     toast({
       title: "Správa odoslaná!",
-      description: "Ďakujeme za vašu správu. Ozveme sa vám čo najskôr.",
+      description: "Ďakujeme za váš záujem. Ozveme sa vám čo najskôr.",
     });
     
     setIsSubmitting(false);
@@ -37,7 +37,7 @@ export const Contact = () => {
   };
 
   return (
-    <section id="kontakt" className="py-24 bg-secondary">
+    <section id="kontakt" className="py-24 bg-section-gradient">
       <div className="container mx-auto px-4">
         <motion.div
           ref={ref}
@@ -47,11 +47,11 @@ export const Contact = () => {
           className="text-center mb-16"
         >
           <span className="text-primary font-semibold uppercase tracking-wider">Kontakt</span>
-          <h2 className="text-3xl md:text-4xl font-heading font-bold text-secondary-foreground mt-2 mb-4">
-            Ozvite sa nám
+          <h2 className="text-3xl md:text-4xl font-heading font-bold text-foreground mt-2 mb-4">
+            Chcem ponuku
           </h2>
-          <p className="text-secondary-foreground/70 text-lg max-w-2xl mx-auto">
-            Máte otázky alebo záujem o spoluprácu? Neváhajte nás kontaktovať.
+          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+            Preferujeme osobné stretnutie alebo telefonát. Vyplňte formulár a ozveme sa vám do 24 hodín.
           </p>
         </motion.div>
 
@@ -62,31 +62,35 @@ export const Contact = () => {
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            <div className="bg-card p-8 rounded-lg shadow-xl">
+            <div className="bg-card p-8 rounded-lg shadow-xl border border-border">
               <h3 className="text-xl font-heading font-bold text-card-foreground mb-6">
                 Pošlite nám správu
               </h3>
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid sm:grid-cols-2 gap-4">
                   <Input
-                    placeholder="Vaše meno"
+                    placeholder="Vaše meno *"
                     required
                     className="bg-background"
                   />
                   <Input
-                    type="email"
-                    placeholder="Váš email"
+                    type="tel"
+                    placeholder="Telefónne číslo *"
                     required
                     className="bg-background"
                   />
                 </div>
                 <Input
-                  placeholder="Predmet"
-                  required
+                  type="email"
+                  placeholder="Váš email"
+                  className="bg-background"
+                />
+                <Input
+                  placeholder="Typ projektu (napr. rekonštrukcia, novostavba...)"
                   className="bg-background"
                 />
                 <Textarea
-                  placeholder="Vaša správa..."
+                  placeholder="Opíšte váš projekt alebo otázku..."
                   rows={5}
                   required
                   className="bg-background resize-none"
@@ -96,7 +100,7 @@ export const Contact = () => {
                     "Odosielam..."
                   ) : (
                     <>
-                      Odoslať správu
+                      Chcem ponuku
                       <Send className="w-4 h-4 ml-2" />
                     </>
                   )}
@@ -113,7 +117,7 @@ export const Contact = () => {
             className="space-y-8"
           >
             <div>
-              <h3 className="text-xl font-heading font-bold text-secondary-foreground mb-6">
+              <h3 className="text-xl font-heading font-bold text-foreground mb-6">
                 Kontaktné údaje
               </h3>
               <div className="space-y-6">
@@ -123,26 +127,28 @@ export const Contact = () => {
                       <info.icon className="w-5 h-5 text-primary" />
                     </div>
                     <div>
-                      <div className="text-sm text-secondary-foreground/60 mb-1">{info.label}</div>
-                      <div className="text-secondary-foreground font-medium">{info.value}</div>
+                      <div className="text-sm text-muted-foreground mb-1">{info.label}</div>
+                      <div className="text-foreground font-medium">{info.value}</div>
                     </div>
                   </div>
                 ))}
               </div>
             </div>
 
-            {/* Map Placeholder */}
-            <div className="aspect-video bg-secondary-foreground/10 rounded-lg overflow-hidden">
-              <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2661.7873566947626!2d17.1069!3d48.1486!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDjCsDA4JzU1LjAiTiAxN8KwMDYnMjQuOCJF!5e0!3m2!1ssk!2ssk!4v1704000000000!5m2!1ssk!2ssk"
-                width="100%"
-                height="100%"
-                style={{ border: 0 }}
-                allowFullScreen
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                title="Mapa sídla spoločnosti"
-              />
+            {/* CTA Box */}
+            <div className="bg-primary/10 p-6 rounded-lg border border-primary/20">
+              <h4 className="font-heading font-bold text-foreground mb-2">
+                Preferujete osobné stretnutie?
+              </h4>
+              <p className="text-muted-foreground mb-4">
+                Zavolajte nám a dohodneme si termín stretnutia priamo na mieste vášho projektu.
+              </p>
+              <Button asChild variant="default">
+                <a href="tel:+421900000000">
+                  <Phone className="w-4 h-4 mr-2" />
+                  Zavolať teraz
+                </a>
+              </Button>
             </div>
           </motion.div>
         </div>

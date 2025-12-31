@@ -1,12 +1,12 @@
 import { motion } from "framer-motion";
-import { ArrowRight, Shield, Clock, Award } from "lucide-react";
+import { ArrowRight, Shield, Clock, Award, Leaf } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import heroImage from "@/assets/hero-construction.jpg";
 
 const stats = [
-  { icon: Shield, value: "15+", label: "Rokov skúseností" },
-  { icon: Clock, value: "200+", label: "Dokončených projektov" },
-  { icon: Award, value: "100%", label: "Spokojných klientov" },
+  { icon: Clock, value: "15+", label: "Rokov skúseností" },
+  { icon: Shield, value: "100%", label: "Dodržaných termínov" },
+  { icon: Leaf, value: "Eko", label: "Ekologické stavby" },
 ];
 
 export const Hero = () => {
@@ -31,7 +31,7 @@ export const Hero = () => {
             transition={{ duration: 0.5 }}
             className="inline-block px-4 py-2 bg-primary/20 text-primary rounded-full font-medium mb-6"
           >
-            Profesionálna stavebná spoločnosť
+            Rýchlosť • Transparentnosť • Kvalita
           </motion.span>
 
           <motion.h1
@@ -40,9 +40,9 @@ export const Hero = () => {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-secondary-foreground leading-tight mb-6"
           >
-            Staviame vaše{" "}
-            <span className="text-gradient">sny</span>{" "}
-            s precíznosťou a vášňou
+            Staviame{" "}
+            <span className="text-gradient">od základu</span>{" "}
+            až po kolaudáciu
           </motion.h1>
 
           <motion.p
@@ -51,8 +51,8 @@ export const Hero = () => {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="text-lg md:text-xl text-secondary-foreground/70 mb-8 max-w-2xl"
           >
-            Od rodinných domov po komerčné budovy – poskytujeme komplexné stavebné služby 
-            s dôrazom na kvalitu, termíny a transparentnosť.
+            Ekologické stavby s prémiovými materiálmi SIKA. Rodinný prístup, transparentné ceny 
+            a 100% dodržiavanie termínov. Žiadne prekvapenia v rozpočte.
           </motion.p>
 
           <motion.div
@@ -63,12 +63,12 @@ export const Hero = () => {
           >
             <Button size="lg" asChild className="text-lg">
               <a href="#kontakt">
-                Získať cenovú ponuku
+                Chcem ponuku
                 <ArrowRight className="w-5 h-5 ml-2" />
               </a>
             </Button>
             <Button size="lg" variant="outline" asChild className="text-lg border-secondary-foreground/30 text-secondary-foreground hover:bg-secondary-foreground/10">
-              <a href="#projekty">Naše projekty</a>
+              <a href="#projekty">Naše realizácie</a>
             </Button>
           </motion.div>
 

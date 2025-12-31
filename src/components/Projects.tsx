@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Building, Trees, GraduationCap } from "lucide-react";
 import projectResidential from "@/assets/project-residential.jpg";
 import projectCommercial from "@/assets/project-commercial.jpg";
 import projectIndustrial from "@/assets/project-industrial.jpg";
@@ -9,21 +9,27 @@ import projectIndustrial from "@/assets/project-industrial.jpg";
 const projects = [
   {
     image: projectResidential,
-    category: "Rodinný dom",
-    title: "Moderná vila v Bratislave",
-    description: "Luxusný rodinný dom s plochou strechou a veľkými presklenými plochami.",
-  },
-  {
-    image: projectCommercial,
-    category: "Komerčná budova",
-    title: "Administratívne centrum",
-    description: "Moderná kancelárska budova s ekologickým certifikátom.",
+    icon: Trees,
+    category: "Lesy SR",
+    title: "Budova lesnej pedagogiky",
+    location: "Lučenec",
+    description: "Kompletná rekonštrukcia budovy lesnej pedagogiky pre Lesy Slovenskej republiky.",
   },
   {
     image: projectIndustrial,
-    category: "Priemyselná hala",
-    title: "Logistické centrum",
-    description: "Skladová hala s administratívnou prístavbou a modernou infraštruktúrou.",
+    icon: Building,
+    category: "Stredoslovenská vodárenská spoločnosť",
+    title: "Vodojem Rakytovce",
+    location: "Rakytovce",
+    description: "Výstavba moderného vodojemu s využitím certifikovaných materiálov SIKA.",
+  },
+  {
+    image: projectCommercial,
+    icon: GraduationCap,
+    category: "Verejný sektor",
+    title: "Základná škola s materskou školou",
+    location: "Zvolenská Slatina",
+    description: "Rozsiahla rekonštrukcia a modernizácia školských priestorov.",
   },
 ];
 
@@ -32,7 +38,7 @@ export const Projects = () => {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section id="projekty" className="py-24 bg-section-gradient">
+    <section id="projekty" className="py-24 bg-secondary">
       <div className="container mx-auto px-4">
         <motion.div
           ref={ref}
@@ -41,12 +47,12 @@ export const Projects = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <span className="text-primary font-semibold uppercase tracking-wider">Naše projekty</span>
-          <h2 className="text-3xl md:text-4xl font-heading font-bold text-foreground mt-2 mb-4">
-            Pozrite sa na naše realizácie
+          <span className="text-primary font-semibold uppercase tracking-wider">Naše realizácie</span>
+          <h2 className="text-3xl md:text-4xl font-heading font-bold text-secondary-foreground mt-2 mb-4">
+            Projekty, na ktoré sme hrdí
           </h2>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Každý projekt je pre nás výzvou a príležitosťou ukázať naše schopnosti.
+          <p className="text-secondary-foreground/70 text-lg max-w-2xl mx-auto">
+            Od verejných inštitúcií po vodárenské spoločnosti – každý projekt realizujeme s maximálnou starostlivosťou.
           </p>
         </motion.div>
 
@@ -57,7 +63,7 @@ export const Projects = () => {
               initial={{ opacity: 0, y: 40 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: index * 0.15 }}
-              className="group cursor-pointer"
+              className="group"
             >
               <div className="relative overflow-hidden rounded-lg aspect-[4/3] mb-4">
                 <img
@@ -70,17 +76,42 @@ export const Projects = () => {
                     <ArrowUpRight className="w-6 h-6 text-primary-foreground" />
                   </div>
                 </div>
+                {/* Category badge */}
+                <div className="absolute top-4 left-4 flex items-center gap-2 bg-secondary/90 backdrop-blur-sm px-3 py-1.5 rounded-full">
+                  <project.icon className="w-4 h-4 text-primary" />
+                  <span className="text-xs font-medium text-secondary-foreground">{project.category}</span>
+                </div>
               </div>
-              <span className="text-primary text-sm font-semibold uppercase tracking-wider">
-                {project.category}
-              </span>
-              <h3 className="text-xl font-heading font-bold text-foreground mt-1 mb-2 group-hover:text-primary transition-colors">
-                {project.title}
-              </h3>
-              <p className="text-muted-foreground">{project.description}</p>
+              <div className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <h3 className="text-xl font-heading font-bold text-secondary-foreground group-hover:text-primary transition-colors">
+                    {project.title}
+                  </h3>
+                </div>
+                <p className="text-primary text-sm font-medium">{project.location}</p>
+                <p className="text-secondary-foreground/70">{project.description}</p>
+              </div>
             </motion.div>
           ))}
         </div>
+
+        {/* Partners mention */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, delay: 0.5 }}
+          className="mt-16 text-center"
+        >
+          <p className="text-secondary-foreground/60 mb-4">Používame prémiové materiály od:</p>
+          <div className="flex flex-wrap justify-center gap-8 items-center">
+            <div className="bg-secondary-foreground/10 px-6 py-3 rounded-lg">
+              <span className="font-heading font-bold text-secondary-foreground">SIKA SLOVENSKO</span>
+            </div>
+            <div className="bg-secondary-foreground/10 px-6 py-3 rounded-lg">
+              <span className="font-heading font-bold text-secondary-foreground">ATRO Banská Bystrica</span>
+            </div>
+          </div>
+        </motion.div>
       </div>
     </section>
   );
