@@ -44,9 +44,9 @@ export const Header = () => {
 
           {/* CTA Button */}
           <div className="hidden lg:flex items-center gap-4">
-            <a href="tel:+421900000000" className="flex items-center gap-2 text-secondary-foreground/80">
+            <a href="tel:+421908867350" className="flex items-center gap-2 text-secondary-foreground/80">
               <Phone className="w-4 h-4 text-primary" />
-              <span className="font-medium">+421 900 000 000</span>
+              <span className="font-medium">+421 908 867 350</span>
             </a>
             <Button asChild>
               <a href="#kontakt">Chcem ponuku</a>
