@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef, useState } from "react";
 import zsSlatinaBeforeImg from "@/assets/zs-slatina-before.jpg";
@@ -12,6 +12,23 @@ const projects = [
     afterImage: zsSlatinaAfterImg,
   },
 ];
+
+const ParallaxCard = ({ children }: { children: React.ReactNode }) => {
+  const ref = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"]
+  });
+  
+  const y = useTransform(scrollYProgress, [0, 1], [50, -50]);
+  const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0.9, 1, 0.9]);
+  
+  return (
+    <motion.div ref={ref} style={{ y, scale }}>
+      {children}
+    </motion.div>
+  );
+};
 
 const BeforeAfterSlider = ({ beforeImage, afterImage, title }: { beforeImage: string; afterImage: string; title: string }) => {
   const [sliderPosition, setSliderPosition] = useState(50);
@@ -83,7 +100,7 @@ export const BeforeAfter = () => {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section className="py-24 bg-background">
+    <section className="py-24 bg-background overflow-hidden">
       <div className="container mx-auto px-4">
         <motion.div
           ref={ref}
@@ -103,22 +120,23 @@ export const BeforeAfter = () => {
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {projects.map((project, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 40 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: index * 0.15 }}
-            >
-              <BeforeAfterSlider
-                beforeImage={project.beforeImage}
-                afterImage={project.afterImage}
-                title={project.title}
-              />
-              <div className="mt-4">
-                <h3 className="font-heading font-bold text-foreground">{project.title}</h3>
-                <p className="text-sm text-primary">{project.location}</p>
-              </div>
-            </motion.div>
+            <ParallaxCard key={index}>
+              <motion.div
+                initial={{ opacity: 0, y: 40 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.5, delay: index * 0.15 }}
+              >
+                <BeforeAfterSlider
+                  beforeImage={project.beforeImage}
+                  afterImage={project.afterImage}
+                  title={project.title}
+                />
+                <div className="mt-4">
+                  <h3 className="font-heading font-bold text-foreground">{project.title}</h3>
+                  <p className="text-sm text-primary">{project.location}</p>
+                </div>
+              </motion.div>
+            </ParallaxCard>
           ))}
         </div>
       </div>

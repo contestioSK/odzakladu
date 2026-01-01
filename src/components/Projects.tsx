@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef, useState } from "react";
 import { ArrowUpRight, Building, Trees, GraduationCap, Home, Droplets, Factory, ChevronLeft, ChevronRight } from "lucide-react";
@@ -8,6 +8,29 @@ import projectCommercial from "@/assets/project-commercial.jpg";
 import projectIndustrial from "@/assets/project-industrial.jpg";
 import projectLesnaPedagogika from "@/assets/project-lesna-pedagogika.jpg";
 import projectZsSlatina from "@/assets/project-zs-slatina.jpg";
+
+const ParallaxImage = ({ src, alt, className }: { src: string; alt: string; className?: string }) => {
+  const ref = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"]
+  });
+  
+  const y = useTransform(scrollYProgress, [0, 1], ["-10%", "10%"]);
+  
+  return (
+    <div ref={ref} className="absolute inset-0 overflow-hidden">
+      <motion.img
+        src={src}
+        alt={alt}
+        className={className}
+        style={{ y }}
+        loading="lazy"
+        decoding="async"
+      />
+    </div>
+  );
+};
 
 const projects = [
   {
@@ -140,20 +163,18 @@ export const Projects = () => {
               className="group"
             >
               <div className="relative overflow-hidden rounded-lg aspect-[4/3] mb-4">
-                <img
+                <ParallaxImage
                   src={project.image}
                   alt={project.title}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                  loading="lazy"
-                  decoding="async"
+                  className="w-full h-[120%] object-cover group-hover:scale-110 transition-transform duration-500"
                 />
-                <div className="absolute inset-0 bg-construction-dark/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                <div className="absolute inset-0 bg-construction-dark/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-10">
                   <div className="w-14 h-14 bg-primary rounded-full flex items-center justify-center">
                     <ArrowUpRight className="w-6 h-6 text-primary-foreground" />
                   </div>
                 </div>
                 {/* Category badge */}
-                <div className="absolute top-4 left-4 flex items-center gap-2 bg-secondary/90 backdrop-blur-sm px-3 py-1.5 rounded-full">
+                <div className="absolute top-4 left-4 flex items-center gap-2 bg-secondary/90 backdrop-blur-sm px-3 py-1.5 rounded-full z-20">
                   <project.icon className="w-4 h-4 text-primary" />
                   <span className="text-xs font-medium text-secondary-foreground">{project.category}</span>
                 </div>
