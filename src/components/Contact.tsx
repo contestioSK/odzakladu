@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef, useState } from "react";
-import { MapPin, Phone, Mail, Clock, Send } from "lucide-react";
+import { MapPin, Phone, Mail, Clock, Send, Home, Building2, HardHat, FlaskConical, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -14,6 +14,33 @@ const contactInfo = [
   { icon: Phone, label: "Telefón", value: "+421 908 867 350" },
   { icon: Mail, label: "Email", value: "info@odzakladu.sk" },
   { icon: Clock, label: "Pracovná doba", value: "Po - Pi: 7:00 - 16:00" },
+];
+
+const projectSegments = [
+  { 
+    id: "rodinny-dom", 
+    icon: Home, 
+    title: "Rodinný dom", 
+    description: "Stavba na kľúč, rekonštrukcia" 
+  },
+  { 
+    id: "verejny-sektor", 
+    icon: Building2, 
+    title: "Verejný sektor", 
+    description: "Školy, úrady, modernizácia" 
+  },
+  { 
+    id: "inzinierske-diela", 
+    icon: HardHat, 
+    title: "Inžinierske diela", 
+    description: "Vodojemy, kanalizácie, siete" 
+  },
+  { 
+    id: "specialne-prace", 
+    icon: FlaskConical, 
+    title: "Špeciálne práce", 
+    description: "Sika izolácie, sanácie chémie" 
+  },
 ];
 
 const contactSchema = z.object({
@@ -37,8 +64,7 @@ const contactSchema = z.object({
   projectType: z
     .string()
     .trim()
-    .max(100, "Typ projektu môže mať maximálne 100 znakov")
-    .optional(),
+    .min(1, "Vyberte prosím typ projektu"),
   message: z
     .string()
     .trim()
@@ -70,6 +96,13 @@ export const Contact = () => {
     // Clear error when user starts typing
     if (errors[name as keyof ContactFormData]) {
       setErrors((prev) => ({ ...prev, [name]: undefined }));
+    }
+  };
+
+  const handleSegmentSelect = (segmentTitle: string) => {
+    setFormData((prev) => ({ ...prev, projectType: segmentTitle }));
+    if (errors.projectType) {
+      setErrors((prev) => ({ ...prev, projectType: undefined }));
     }
   };
 
@@ -150,10 +183,10 @@ export const Contact = () => {
         >
           <span className="text-primary font-semibold uppercase tracking-wider text-sm">Kontakt</span>
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-heading font-bold text-foreground mt-2 mb-3 sm:mb-4">
-            Chcem ponuku
+            Poďme na to. Od základu.
           </h2>
           <p className="text-muted-foreground text-base sm:text-lg max-w-2xl mx-auto px-4 sm:px-0">
-            Preferujeme osobné stretnutie alebo telefonát. Vyplňte formulár a ozveme sa vám do 24 hodín.
+            Vyberte si oblasť, ktorú potrebujete riešiť, a my sa vám ozveme s konkrétnym plánom.
           </p>
         </motion.div>
 
@@ -166,8 +199,47 @@ export const Contact = () => {
           >
             <div className="bg-card p-5 sm:p-8 rounded-lg shadow-xl border border-border">
               <h3 className="text-lg sm:text-xl font-heading font-bold text-card-foreground mb-4 sm:mb-6">
-                Pošlite nám správu
+                S čím Vám vieme pomôcť?
               </h3>
+              
+              {/* Segment Selection */}
+              <div className="grid grid-cols-2 gap-3 mb-6">
+                {projectSegments.map((segment, index) => {
+                  const isSelected = formData.projectType === segment.title;
+                  return (
+                    <motion.button
+                      key={segment.id}
+                      type="button"
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={isInView ? { opacity: 1, y: 0 } : {}}
+                      transition={{ duration: 0.4, delay: 0.3 + index * 0.1 }}
+                      onClick={() => handleSegmentSelect(segment.title)}
+                      className={`relative p-4 rounded-lg border-2 text-left transition-all duration-300 hover:shadow-md hover:-translate-y-0.5 ${
+                        isSelected
+                          ? "border-primary bg-primary/10"
+                          : "border-border bg-background hover:border-primary/50"
+                      }`}
+                    >
+                      {isSelected && (
+                        <div className="absolute top-2 right-2 w-5 h-5 bg-primary rounded-full flex items-center justify-center">
+                          <Check className="w-3 h-3 text-primary-foreground" />
+                        </div>
+                      )}
+                      <segment.icon className={`w-6 h-6 mb-2 ${isSelected ? "text-primary" : "text-muted-foreground"}`} />
+                      <div className={`font-semibold text-sm ${isSelected ? "text-primary" : "text-foreground"}`}>
+                        {segment.title}
+                      </div>
+                      <div className="text-xs text-muted-foreground mt-0.5">
+                        {segment.description}
+                      </div>
+                    </motion.button>
+                  );
+                })}
+              </div>
+              {errors.projectType && (
+                <p className="text-xs text-destructive -mt-4 mb-4">{errors.projectType}</p>
+              )}
+
               <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
                 <div className="grid sm:grid-cols-2 gap-3 sm:gap-4">
                   <div className="space-y-1">
@@ -175,7 +247,7 @@ export const Contact = () => {
                       name="name"
                       value={formData.name}
                       onChange={handleChange}
-                      placeholder="Vaše meno *"
+                      placeholder="Meno a priezvisko *"
                       className={`bg-background ${errors.name ? "border-destructive" : ""}`}
                       aria-invalid={!!errors.name}
                     />
@@ -213,24 +285,11 @@ export const Contact = () => {
                   )}
                 </div>
                 <div className="space-y-1">
-                  <Input
-                    name="projectType"
-                    value={formData.projectType}
-                    onChange={handleChange}
-                    placeholder="Typ projektu (napr. rekonštrukcia, novostavba...)"
-                    className={`bg-background ${errors.projectType ? "border-destructive" : ""}`}
-                    aria-invalid={!!errors.projectType}
-                  />
-                  {errors.projectType && (
-                    <p className="text-xs text-destructive">{errors.projectType}</p>
-                  )}
-                </div>
-                <div className="space-y-1">
                   <Textarea
                     name="message"
                     value={formData.message}
                     onChange={handleChange}
-                    placeholder="Opíšte váš projekt alebo otázku... *"
+                    placeholder="Stručný popis projektu... *"
                     rows={4}
                     className={`bg-background resize-none ${errors.message ? "border-destructive" : ""}`}
                     aria-invalid={!!errors.message}
@@ -244,7 +303,7 @@ export const Contact = () => {
                     "Odosielam..."
                   ) : (
                     <>
-                      Chcem ponuku
+                      Chcem nezáväznú ponuku
                       <Send className="w-4 h-4 ml-2" />
                     </>
                   )}
