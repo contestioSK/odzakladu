@@ -18,6 +18,9 @@ export const Hero = () => {
           src={heroImage}
           alt="Stavebná konštrukcia"
           className="w-full h-full object-cover"
+          loading="eager"
+          decoding="async"
+          fetchPriority="high"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-construction-dark/95 via-construction-dark/80 to-construction-dark/40" />
       </div>
