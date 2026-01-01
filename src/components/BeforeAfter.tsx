@@ -35,6 +35,8 @@ const BeforeAfterSlider = ({ beforeImage, afterImage, title }: { beforeImage: st
         src={afterImage}
         alt={`${title} - po`}
         className="absolute inset-0 w-full h-full object-cover"
+        loading="lazy"
+        decoding="async"
       />
       
       {/* Before Image (clipped) */}
@@ -47,6 +49,8 @@ const BeforeAfterSlider = ({ beforeImage, afterImage, title }: { beforeImage: st
           alt={`${title} - pred`}
           className="absolute inset-0 w-full h-full object-cover"
           style={{ width: `${100 / (sliderPosition / 100)}%`, maxWidth: 'none' }}
+          loading="lazy"
+          decoding="async"
         />
       </div>
       
