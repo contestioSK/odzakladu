@@ -51,9 +51,9 @@ const handler = async (req: Request): Promise<Response> => {
     });
 
     if (!notificationRes.ok) {
-      const error = await notificationRes.text();
-      console.error("Error sending notification email:", error);
-      throw new Error(`Failed to send notification email: ${error}`);
+      const errorDetails = await notificationRes.text();
+      console.error("Error sending notification email:", errorDetails);
+      throw new Error("EMAIL_SEND_FAILED");
     }
 
     console.log("Notification email sent successfully");
@@ -102,9 +102,9 @@ const handler = async (req: Request): Promise<Response> => {
       }
     );
   } catch (error: any) {
-    console.error("Error in send-contact-email function:", error);
+    console.error("Error in send-contact-email function:", error.message, error.stack);
     return new Response(
-      JSON.stringify({ error: error.message }),
+      JSON.stringify({ error: "Nepodarilo sa odoslať správu. Skúste to znova alebo nás kontaktujte telefonicky." }),
       {
         status: 500,
         headers: { "Content-Type": "application/json", ...corsHeaders },
