@@ -6,10 +6,11 @@ import { Button } from "@/components/ui/button";
 import projectResidential from "@/assets/project-residential.jpg";
 import projectCommercial from "@/assets/project-commercial.jpg";
 import projectIndustrial from "@/assets/project-industrial.jpg";
+import projectLesnaPedagogika from "@/assets/project-lesna-pedagogika.jpg";
 
 const projects = [
   {
-    image: projectResidential,
+    image: projectLesnaPedagogika,
     icon: Trees,
     category: "Lesy SR",
     title: "Budova lesnej pedagogiky",
