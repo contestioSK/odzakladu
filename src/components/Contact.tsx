@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 
 const contactInfo = [
   { icon: MapPin, label: "Adresa", value: "Lúčna 1765, 962 05 Hriňová" },
@@ -19,21 +20,52 @@ export const Contact = () => {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formData, setFormData] = useState({
+    name: "",
+    phone: "",
+    email: "",
+    projectType: "",
+    message: "",
+  });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
     
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    
-    toast({
-      title: "Správa odoslaná!",
-      description: "Ďakujeme za váš záujem. Ozveme sa vám čo najskôr.",
-    });
-    
-    setIsSubmitting(false);
-    (e.target as HTMLFormElement).reset();
+    try {
+      const { data, error } = await supabase.functions.invoke("send-contact-email", {
+        body: formData,
+      });
+
+      if (error) throw error;
+
+      toast({
+        title: "Správa odoslaná!",
+        description: "Ďakujeme za váš záujem. Ozveme sa vám čo najskôr.",
+      });
+      
+      setFormData({
+        name: "",
+        phone: "",
+        email: "",
+        projectType: "",
+        message: "",
+      });
+    } catch (error: any) {
+      console.error("Error sending message:", error);
+      toast({
+        title: "Chyba pri odosielaní",
+        description: "Skúste to prosím znova alebo nás kontaktujte telefonicky.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -69,27 +101,42 @@ export const Contact = () => {
               <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
                 <div className="grid sm:grid-cols-2 gap-3 sm:gap-4">
                   <Input
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
                     placeholder="Vaše meno *"
                     required
                     className="bg-background"
                   />
                   <Input
+                    name="phone"
                     type="tel"
+                    value={formData.phone}
+                    onChange={handleChange}
                     placeholder="Telefónne číslo *"
                     required
                     className="bg-background"
                   />
                 </div>
                 <Input
+                  name="email"
                   type="email"
+                  value={formData.email}
+                  onChange={handleChange}
                   placeholder="Váš email"
                   className="bg-background"
                 />
                 <Input
+                  name="projectType"
+                  value={formData.projectType}
+                  onChange={handleChange}
                   placeholder="Typ projektu (napr. rekonštrukcia, novostavba...)"
                   className="bg-background"
                 />
                 <Textarea
+                  name="message"
+                  value={formData.message}
+                  onChange={handleChange}
                   placeholder="Opíšte váš projekt alebo otázku..."
                   rows={4}
                   required
