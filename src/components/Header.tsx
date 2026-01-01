@@ -71,15 +71,24 @@ export const Header = () => {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="lg:hidden bg-secondary border-t border-secondary-foreground/10"
+            className="lg:hidden bg-secondary border-t border-secondary-foreground/10 overflow-hidden"
           >
             <nav className="container mx-auto px-4 py-4 sm:py-6 flex flex-col gap-1">
               {navLinks.map((link) => (
                 <a
                   key={link.href}
                   href={link.href}
-                  onClick={() => setIsMenuOpen(false)}
-                  className="text-secondary-foreground/80 hover:text-primary font-medium py-3 transition-colors border-b border-secondary-foreground/5 last:border-0"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setIsMenuOpen(false);
+                    const element = document.querySelector(link.href);
+                    if (element) {
+                      setTimeout(() => {
+                        element.scrollIntoView({ behavior: 'smooth' });
+                      }, 100);
+                    }
+                  }}
+                  className="text-secondary-foreground/80 hover:text-primary font-medium py-3 transition-colors border-b border-secondary-foreground/5 last:border-0 cursor-pointer"
                 >
                   {link.label}
                 </a>
@@ -93,7 +102,21 @@ export const Header = () => {
                   <span className="font-medium">+421 908 867 350</span>
                 </a>
                 <Button asChild className="w-full">
-                  <a href="#kontakt" onClick={() => setIsMenuOpen(false)}>Chcem ponuku</a>
+                  <a 
+                    href="#kontakt" 
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setIsMenuOpen(false);
+                      const element = document.querySelector('#kontakt');
+                      if (element) {
+                        setTimeout(() => {
+                          element.scrollIntoView({ behavior: 'smooth' });
+                        }, 100);
+                      }
+                    }}
+                  >
+                    Chcem ponuku
+                  </a>
                 </Button>
               </div>
             </nav>
