@@ -36,14 +36,14 @@ export const Stats = () => {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section className="py-20 bg-construction-dark">
-      <div className="container mx-auto px-4">
+    <section className="py-12 sm:py-20 bg-construction-dark">
+      <div className="container mx-auto px-4 sm:px-6">
         <motion.div
           ref={ref}
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
-          className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8"
+          className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8"
         >
           {stats.map((stat, index) => (
             <motion.div
@@ -53,9 +53,12 @@ export const Stats = () => {
               transition={{ duration: 0.5, delay: index * 0.1 }}
               className="text-center"
             >
-              <stat.icon className="w-10 h-10 text-primary mx-auto mb-4" />
-              <AnimatedCounter value={stat.value} suffix={stat.suffix} />
-              <p className="text-secondary-foreground/70 mt-2">{stat.label}</p>
+              <stat.icon className="w-8 h-8 sm:w-10 sm:h-10 text-primary mx-auto mb-2 sm:mb-4" />
+              <span className="text-3xl sm:text-4xl md:text-5xl font-heading font-bold text-primary">
+                <motion.span>{stat.value}</motion.span>
+                {stat.suffix}
+              </span>
+              <p className="text-secondary-foreground/70 mt-1 sm:mt-2 text-xs sm:text-base">{stat.label}</p>
             </motion.div>
           ))}
         </motion.div>
