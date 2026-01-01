@@ -35,7 +35,7 @@ const handler = async (req: Request): Promise<Response> => {
         Authorization: `Bearer ${RESEND_API_KEY}`,
       },
       body: JSON.stringify({
-        from: "Web formulár <onboarding@resend.dev>",
+        from: "Web formulár <info@odzakladu.sk>",
         to: ["info@odzakladu.sk"],
         subject: `Nová správa z webu - ${projectType || "Kontakt"}`,
         html: `
@@ -67,7 +67,7 @@ const handler = async (req: Request): Promise<Response> => {
           Authorization: `Bearer ${RESEND_API_KEY}`,
         },
         body: JSON.stringify({
-          from: "OD ZÁKLADU <onboarding@resend.dev>",
+          from: "OD ZÁKLADU <info@odzakladu.sk>",
           to: [email],
           subject: "Ďakujeme za vašu správu - OD ZÁKLADU",
           html: `
