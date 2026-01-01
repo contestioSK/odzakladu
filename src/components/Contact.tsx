@@ -9,7 +9,7 @@ import { useToast } from "@/hooks/use-toast";
 
 const contactInfo = [
   { icon: MapPin, label: "Adresa", value: "Doplňte adresu" },
-  { icon: Phone, label: "Telefón", value: "+421 900 000 000" },
+  { icon: Phone, label: "Telefón", value: "+421 908 867 350" },
   { icon: Mail, label: "Email", value: "info@odzakladu.sk" },
   { icon: Clock, label: "Pracovná doba", value: "Po - Pi: 7:00 - 16:00" },
 ];
@@ -144,7 +144,7 @@ export const Contact = () => {
                 Zavolajte nám a dohodneme si termín stretnutia priamo na mieste vášho projektu.
               </p>
               <Button asChild variant="default">
-                <a href="tel:+421900000000">
+                <a href="tel:+421908867350">
                   <Phone className="w-4 h-4 mr-2" />
                   Zavolať teraz
                 </a>
