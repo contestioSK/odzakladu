@@ -67,7 +67,7 @@ export const Hero = () => {
                 <ArrowRight className="w-5 h-5 ml-2" />
               </a>
             </Button>
-            <Button size="lg" variant="outline" asChild className="text-lg border-secondary-foreground/30 text-secondary-foreground hover:bg-secondary-foreground/10">
+            <Button size="lg" variant="outline" asChild className="text-lg border-white/30 text-white bg-white/10 hover:bg-white/20 hover:border-white/50">
               <a href="#projekty">Naše realizácie</a>
             </Button>
           </motion.div>
