@@ -66,7 +66,7 @@ export const Services = () => {
               key={index}
               initial={{ opacity: 0, y: 40 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
+              transition={{ duration: 0.5, delay: index * 0.3 }}
             >
               <Card className="bg-secondary-foreground/5 border-secondary-foreground/10 hover:border-primary/50 transition-all duration-300 group h-full">
                 <CardContent className="p-5 sm:p-8">
