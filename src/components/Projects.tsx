@@ -1,7 +1,8 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
-import { useRef } from "react";
-import { ArrowUpRight, Building, Trees, GraduationCap } from "lucide-react";
+import { useRef, useState } from "react";
+import { ArrowUpRight, Building, Trees, GraduationCap, Home, Droplets, Factory, ChevronLeft, ChevronRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import projectResidential from "@/assets/project-residential.jpg";
 import projectCommercial from "@/assets/project-commercial.jpg";
 import projectIndustrial from "@/assets/project-industrial.jpg";
@@ -31,11 +32,51 @@ const projects = [
     location: "Zvolenská Slatina",
     description: "Rozsiahla rekonštrukcia a modernizácia školských priestorov.",
   },
+  {
+    image: projectResidential,
+    icon: Home,
+    category: "Súkromný investor",
+    title: "Rodinný dom s garážou",
+    location: "Banská Bystrica",
+    description: "Novostavba moderného rodinného domu na kľúč vrátane terénnych úprav.",
+  },
+  {
+    image: projectIndustrial,
+    icon: Droplets,
+    category: "Vodárenská spoločnosť",
+    title: "Vodovodná prípojka",
+    location: "Detva",
+    description: "Realizácia vodovodnej a kanalizačnej prípojky pre obytný komplex.",
+  },
+  {
+    image: projectCommercial,
+    icon: Factory,
+    category: "Komerčný sektor",
+    title: "Skladová hala",
+    location: "Zvolen",
+    description: "Výstavba priemyselnej skladovej haly s administratívnou časťou.",
+  },
 ];
 
 export const Projects = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const projectsPerPage = 3;
+  const totalPages = Math.ceil(projects.length / projectsPerPage);
+
+  const nextSlide = () => {
+    setCurrentIndex((prev) => (prev + 1) % totalPages);
+  };
+
+  const prevSlide = () => {
+    setCurrentIndex((prev) => (prev - 1 + totalPages) % totalPages);
+  };
+
+  const visibleProjects = projects.slice(
+    currentIndex * projectsPerPage,
+    currentIndex * projectsPerPage + projectsPerPage
+  );
 
   return (
     <section id="projekty" className="py-24 bg-secondary">
@@ -56,12 +97,43 @@ export const Projects = () => {
           </p>
         </motion.div>
 
+        {/* Carousel Controls */}
+        <div className="flex justify-center gap-4 mb-8">
+          <Button
+            variant="outline"
+            size="icon"
+            onClick={prevSlide}
+            className="rounded-full border-secondary-foreground/20 text-secondary-foreground hover:bg-primary hover:text-primary-foreground hover:border-primary"
+          >
+            <ChevronLeft className="w-5 h-5" />
+          </Button>
+          <div className="flex items-center gap-2">
+            {Array.from({ length: totalPages }).map((_, idx) => (
+              <button
+                key={idx}
+                onClick={() => setCurrentIndex(idx)}
+                className={`w-2 h-2 rounded-full transition-colors ${
+                  idx === currentIndex ? "bg-primary" : "bg-secondary-foreground/30"
+                }`}
+              />
+            ))}
+          </div>
+          <Button
+            variant="outline"
+            size="icon"
+            onClick={nextSlide}
+            className="rounded-full border-secondary-foreground/20 text-secondary-foreground hover:bg-primary hover:text-primary-foreground hover:border-primary"
+          >
+            <ChevronRight className="w-5 h-5" />
+          </Button>
+        </div>
+
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {projects.map((project, index) => (
+          {visibleProjects.map((project, index) => (
             <motion.div
-              key={index}
+              key={`${currentIndex}-${index}`}
               initial={{ opacity: 0, y: 40 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.15 }}
               className="group"
             >
