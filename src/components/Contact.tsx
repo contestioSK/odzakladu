@@ -37,37 +37,37 @@ export const Contact = () => {
   };
 
   return (
-    <section id="kontakt" className="py-24 bg-section-gradient">
-      <div className="container mx-auto px-4">
+    <section id="kontakt" className="py-16 sm:py-24 bg-section-gradient">
+      <div className="container mx-auto px-4 sm:px-6">
         <motion.div
           ref={ref}
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-10 sm:mb-16"
         >
-          <span className="text-primary font-semibold uppercase tracking-wider">Kontakt</span>
-          <h2 className="text-3xl md:text-4xl font-heading font-bold text-foreground mt-2 mb-4">
+          <span className="text-primary font-semibold uppercase tracking-wider text-sm">Kontakt</span>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-heading font-bold text-foreground mt-2 mb-3 sm:mb-4">
             Chcem ponuku
           </h2>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+          <p className="text-muted-foreground text-base sm:text-lg max-w-2xl mx-auto px-4 sm:px-0">
             Preferujeme osobné stretnutie alebo telefonát. Vyplňte formulár a ozveme sa vám do 24 hodín.
           </p>
         </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-12">
+        <div className="grid lg:grid-cols-2 gap-8 sm:gap-12">
           {/* Contact Form */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            <div className="bg-card p-8 rounded-lg shadow-xl border border-border">
-              <h3 className="text-xl font-heading font-bold text-card-foreground mb-6">
+            <div className="bg-card p-5 sm:p-8 rounded-lg shadow-xl border border-border">
+              <h3 className="text-lg sm:text-xl font-heading font-bold text-card-foreground mb-4 sm:mb-6">
                 Pošlite nám správu
               </h3>
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="grid sm:grid-cols-2 gap-4">
+              <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
+                <div className="grid sm:grid-cols-2 gap-3 sm:gap-4">
                   <Input
                     placeholder="Vaše meno *"
                     required
@@ -91,7 +91,7 @@ export const Contact = () => {
                 />
                 <Textarea
                   placeholder="Opíšte váš projekt alebo otázku..."
-                  rows={5}
+                  rows={4}
                   required
                   className="bg-background resize-none"
                 />
@@ -114,21 +114,21 @@ export const Contact = () => {
             initial={{ opacity: 0, x: 50 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="space-y-8"
+            className="space-y-6 sm:space-y-8"
           >
             <div>
-              <h3 className="text-xl font-heading font-bold text-foreground mb-6">
+              <h3 className="text-lg sm:text-xl font-heading font-bold text-foreground mb-4 sm:mb-6">
                 Kontaktné údaje
               </h3>
-              <div className="space-y-6">
+              <div className="space-y-4 sm:space-y-6">
                 {contactInfo.map((info, index) => (
-                  <div key={index} className="flex items-start gap-4">
-                    <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <info.icon className="w-5 h-5 text-primary" />
+                  <div key={index} className="flex items-start gap-3 sm:gap-4">
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <info.icon className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
                     </div>
                     <div>
-                      <div className="text-sm text-muted-foreground mb-1">{info.label}</div>
-                      <div className="text-foreground font-medium">{info.value}</div>
+                      <div className="text-xs sm:text-sm text-muted-foreground mb-0.5 sm:mb-1">{info.label}</div>
+                      <div className="text-foreground font-medium text-sm sm:text-base">{info.value}</div>
                     </div>
                   </div>
                 ))}
@@ -136,14 +136,14 @@ export const Contact = () => {
             </div>
 
             {/* CTA Box */}
-            <div className="bg-primary/10 p-6 rounded-lg border border-primary/20">
-              <h4 className="font-heading font-bold text-foreground mb-2">
+            <div className="bg-primary/10 p-4 sm:p-6 rounded-lg border border-primary/20">
+              <h4 className="font-heading font-bold text-foreground mb-2 text-sm sm:text-base">
                 Preferujete osobné stretnutie?
               </h4>
-              <p className="text-muted-foreground mb-4">
+              <p className="text-muted-foreground mb-3 sm:mb-4 text-sm sm:text-base">
                 Zavolajte nám a dohodneme si termín stretnutia priamo na mieste vášho projektu.
               </p>
-              <Button asChild variant="default">
+              <Button asChild variant="default" className="w-full sm:w-auto">
                 <a href="tel:+421908867350">
                   <Phone className="w-4 h-4 mr-2" />
                   Zavolať teraz
@@ -158,17 +158,18 @@ export const Contact = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.4 }}
-          className="mt-12 rounded-lg overflow-hidden border border-border shadow-lg"
+          className="mt-8 sm:mt-12 rounded-lg overflow-hidden border border-border shadow-lg"
         >
           <iframe
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2648.8!2d19.5258!3d48.5628!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x473fb0e5a2c4d8d1%3A0x400f7d1c69670a0!2sLu%C4%8Dna%201765%2C%20962%2005%20Hri%C5%88ov%C3%A1%2C%20Slovakia!5e0!3m2!1sen!2ssk!4v1704067200000"
             width="100%"
-            height="400"
+            height="300"
             style={{ border: 0 }}
             allowFullScreen
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
             title="Mapa - MMS Stav s.r.o."
+            className="sm:h-[400px]"
           />
         </motion.div>
       </div>

@@ -100,25 +100,25 @@ export const BeforeAfter = () => {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section className="py-24 bg-background overflow-hidden">
-      <div className="container mx-auto px-4">
+    <section className="py-16 sm:py-24 bg-background overflow-hidden">
+      <div className="container mx-auto px-4 sm:px-6">
         <motion.div
           ref={ref}
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-10 sm:mb-16"
         >
-          <span className="text-primary font-semibold uppercase tracking-wider">Pred & Po</span>
-          <h2 className="text-3xl md:text-4xl font-heading font-bold text-foreground mt-2 mb-4">
+          <span className="text-primary font-semibold uppercase tracking-wider text-sm">Pred & Po</span>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-heading font-bold text-foreground mt-2 mb-3 sm:mb-4">
             Premeny, ktoré hovoria za všetko
           </h2>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+          <p className="text-muted-foreground text-base sm:text-lg max-w-2xl mx-auto px-4 sm:px-0">
             Posuňte posúvač a pozrite si, ako dokážeme premeniť váš projekt.
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
           {projects.map((project, index) => (
             <ParallaxCard key={index}>
               <motion.div
@@ -131,9 +131,9 @@ export const BeforeAfter = () => {
                   afterImage={project.afterImage}
                   title={project.title}
                 />
-                <div className="mt-4">
-                  <h3 className="font-heading font-bold text-foreground">{project.title}</h3>
-                  <p className="text-sm text-primary">{project.location}</p>
+                <div className="mt-3 sm:mt-4">
+                  <h3 className="font-heading font-bold text-foreground text-sm sm:text-base">{project.title}</h3>
+                  <p className="text-xs sm:text-sm text-primary">{project.location}</p>
                 </div>
               </motion.div>
             </ParallaxCard>

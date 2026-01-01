@@ -22,7 +22,7 @@ export const Hero = () => {
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
 
   return (
-    <section ref={ref} id="domov" className="relative min-h-[75vh] flex items-center overflow-hidden">
+    <section ref={ref} id="domov" className="relative min-h-[85vh] sm:min-h-[75vh] flex items-center overflow-hidden">
       {/* Background Image with Parallax */}
       <motion.div 
         className="absolute inset-0"
@@ -41,7 +41,7 @@ export const Hero = () => {
 
       {/* Content with Parallax */}
       <motion.div 
-        className="container mx-auto px-4 relative z-10 pt-20"
+        className="container mx-auto px-4 sm:px-6 relative z-10 pt-24 sm:pt-20"
         style={{ y: textY, opacity }}
       >
         <div className="max-w-3xl">
@@ -49,7 +49,7 @@ export const Hero = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="inline-block px-4 py-2 bg-primary/20 text-primary rounded-full font-medium mb-6"
+            className="inline-block px-3 py-1.5 sm:px-4 sm:py-2 bg-primary/20 text-primary rounded-full font-medium mb-4 sm:mb-6 text-sm sm:text-base"
           >
             Rýchlosť • Transparentnosť • Kvalita
           </motion.span>
@@ -58,7 +58,7 @@ export const Hero = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-secondary-foreground leading-tight mb-6"
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-secondary-foreground leading-tight mb-4 sm:mb-6"
           >
             Staviame{" "}
             <span className="text-gradient">od základu</span>{" "}
@@ -69,7 +69,7 @@ export const Hero = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-lg md:text-xl text-secondary-foreground/70 mb-8 max-w-2xl"
+            className="text-base sm:text-lg md:text-xl text-secondary-foreground/70 mb-6 sm:mb-8 max-w-2xl"
           >
             Ekologické stavby s prémiovými materiálmi SIKA. Rodinný prístup, transparentné ceny 
             a 100% dodržiavanie termínov. Žiadne prekvapenia v rozpočte.
@@ -79,15 +79,15 @@ export const Hero = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="flex flex-col sm:flex-row gap-4 mb-16"
+            className="flex flex-col sm:flex-row gap-3 sm:gap-4 mb-10 sm:mb-16"
           >
-            <Button size="lg" asChild className="text-lg">
+            <Button size="lg" asChild className="text-base sm:text-lg w-full sm:w-auto">
               <a href="#kontakt">
                 Chcem ponuku
                 <ArrowRight className="w-5 h-5 ml-2" />
               </a>
             </Button>
-            <Button size="lg" variant="outline" asChild className="text-lg border-white/30 text-white bg-white/10 hover:bg-white/20 hover:border-white/50">
+            <Button size="lg" variant="outline" asChild className="text-base sm:text-lg border-white/30 text-white bg-white/10 hover:bg-white/20 hover:border-white/50 w-full sm:w-auto">
               <a href="#projekty">Naše realizácie</a>
             </Button>
           </motion.div>
@@ -97,15 +97,15 @@ export const Hero = () => {
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
-            className="grid grid-cols-3 gap-8 max-w-lg"
+            className="grid grid-cols-3 gap-4 sm:gap-8 max-w-lg"
           >
             {stats.map((stat, index) => (
               <div key={index} className="text-center sm:text-left">
-                <stat.icon className="w-8 h-8 text-primary mb-2 mx-auto sm:mx-0" />
-                <div className="text-2xl md:text-3xl font-heading font-bold text-secondary-foreground">
+                <stat.icon className="w-6 h-6 sm:w-8 sm:h-8 text-primary mb-1 sm:mb-2 mx-auto sm:mx-0" />
+                <div className="text-xl sm:text-2xl md:text-3xl font-heading font-bold text-secondary-foreground">
                   {stat.value}
                 </div>
-                <div className="text-sm text-secondary-foreground/60">{stat.label}</div>
+                <div className="text-xs sm:text-sm text-secondary-foreground/60">{stat.label}</div>
               </div>
             ))}
           </motion.div>
