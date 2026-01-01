@@ -11,7 +11,7 @@ const stats = [
 
 export const Hero = () => {
   return (
-    <section id="domov" className="relative min-h-[85vh] flex items-center">
+    <section id="domov" className="relative min-h-[75vh] flex items-center">
       {/* Background Image with Overlay */}
       <div className="absolute inset-0">
         <img
