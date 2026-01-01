@@ -1,4 +1,4 @@
-import { Phone, Mail, MapPin } from "lucide-react";
+import { Phone, Mail, MapPin, Facebook } from "lucide-react";
 
 const footerLinks = {
   sluzby: [
@@ -37,9 +37,18 @@ export const Footer = () => {
               Profesionálna stavebná spoločnosť s 15-ročnou tradíciou. 
               Ekologické stavby s prémiovými materiálmi.
             </p>
-            <p className="text-secondary-foreground/40 text-sm">
+            <p className="text-secondary-foreground/40 text-sm mb-4">
               Prevádzkovateľ: <strong className="text-secondary-foreground/60">MMS Stav s.r.o.</strong>
             </p>
+            <a
+              href="https://www.facebook.com/profile.php?id=100039209113730"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-secondary-foreground/60 hover:text-primary transition-colors"
+            >
+              <Facebook className="w-5 h-5" />
+              <span>Sledujte nás na Facebooku</span>
+            </a>
           </div>
 
           {/* Services */}
