@@ -1,7 +1,8 @@
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowRight, Shield, Clock, Award, Leaf } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import heroImage from "@/assets/hero-construction.jpg";
+import { useRef } from "react";
 
 const stats = [
   { icon: Clock, value: "15+", label: "Rokov skúseností" },
@@ -10,23 +11,39 @@ const stats = [
 ];
 
 export const Hero = () => {
+  const ref = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start start", "end start"]
+  });
+  
+  const backgroundY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
+  const textY = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
+  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+
   return (
-    <section id="domov" className="relative min-h-[75vh] flex items-center">
-      {/* Background Image with Overlay */}
-      <div className="absolute inset-0">
+    <section ref={ref} id="domov" className="relative min-h-[75vh] flex items-center overflow-hidden">
+      {/* Background Image with Parallax */}
+      <motion.div 
+        className="absolute inset-0"
+        style={{ y: backgroundY }}
+      >
         <img
           src={heroImage}
           alt="Stavebná konštrukcia"
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover scale-110"
           loading="eager"
           decoding="async"
           fetchPriority="high"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-construction-dark/95 via-construction-dark/80 to-construction-dark/40" />
-      </div>
+      </motion.div>
 
-      {/* Content */}
-      <div className="container mx-auto px-4 relative z-10 pt-20">
+      {/* Content with Parallax */}
+      <motion.div 
+        className="container mx-auto px-4 relative z-10 pt-20"
+        style={{ y: textY, opacity }}
+      >
         <div className="max-w-3xl">
           <motion.span
             initial={{ opacity: 0, y: 20 }}
@@ -93,7 +110,7 @@ export const Hero = () => {
             ))}
           </motion.div>
         </div>
-      </div>
+      </motion.div>
 
       {/* Scroll Indicator */}
       <motion.div
