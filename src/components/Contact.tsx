@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
+import { z } from "zod";
 
 const contactInfo = [
   { icon: MapPin, label: "Adresa", value: "Lúčna 1765, 962 05 Hriňová" },
@@ -15,26 +16,94 @@ const contactInfo = [
   { icon: Clock, label: "Pracovná doba", value: "Po - Pi: 7:00 - 16:00" },
 ];
 
+const contactSchema = z.object({
+  name: z
+    .string()
+    .trim()
+    .min(2, "Meno musí mať aspoň 2 znaky")
+    .max(100, "Meno môže mať maximálne 100 znakov"),
+  phone: z
+    .string()
+    .trim()
+    .min(9, "Telefónne číslo musí mať aspoň 9 číslic")
+    .max(20, "Telefónne číslo môže mať maximálne 20 znakov")
+    .regex(/^[+]?[\d\s-]+$/, "Neplatný formát telefónneho čísla"),
+  email: z
+    .string()
+    .trim()
+    .email("Neplatná emailová adresa")
+    .max(255, "Email môže mať maximálne 255 znakov")
+    .or(z.literal("")),
+  projectType: z
+    .string()
+    .trim()
+    .max(100, "Typ projektu môže mať maximálne 100 znakov")
+    .optional(),
+  message: z
+    .string()
+    .trim()
+    .min(10, "Správa musí mať aspoň 10 znakov")
+    .max(2000, "Správa môže mať maximálne 2000 znakov"),
+});
+
+type ContactFormData = z.infer<typeof contactSchema>;
+
+type FormErrors = Partial<Record<keyof ContactFormData, string>>;
+
 export const Contact = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<ContactFormData>({
     name: "",
     phone: "",
     email: "",
     projectType: "",
     message: "",
   });
+  const [errors, setErrors] = useState<FormErrors>({});
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
+    // Clear error when user starts typing
+    if (errors[name as keyof ContactFormData]) {
+      setErrors((prev) => ({ ...prev, [name]: undefined }));
+    }
+  };
+
+  const validateForm = (): boolean => {
+    const result = contactSchema.safeParse(formData);
+    
+    if (!result.success) {
+      const fieldErrors: FormErrors = {};
+      result.error.errors.forEach((error) => {
+        const field = error.path[0] as keyof ContactFormData;
+        if (!fieldErrors[field]) {
+          fieldErrors[field] = error.message;
+        }
+      });
+      setErrors(fieldErrors);
+      return false;
+    }
+    
+    setErrors({});
+    return true;
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    
+    if (!validateForm()) {
+      toast({
+        title: "Chyba vo formulári",
+        description: "Prosím skontrolujte vyplnené údaje.",
+        variant: "destructive",
+      });
+      return;
+    }
+    
     setIsSubmitting(true);
     
     try {
@@ -56,6 +125,7 @@ export const Contact = () => {
         projectType: "",
         message: "",
       });
+      setErrors({});
     } catch (error: any) {
       console.error("Error sending message:", error);
       toast({
@@ -100,48 +170,75 @@ export const Contact = () => {
               </h3>
               <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
                 <div className="grid sm:grid-cols-2 gap-3 sm:gap-4">
-                  <Input
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    placeholder="Vaše meno *"
-                    required
-                    className="bg-background"
-                  />
-                  <Input
-                    name="phone"
-                    type="tel"
-                    value={formData.phone}
-                    onChange={handleChange}
-                    placeholder="Telefónne číslo *"
-                    required
-                    className="bg-background"
-                  />
+                  <div className="space-y-1">
+                    <Input
+                      name="name"
+                      value={formData.name}
+                      onChange={handleChange}
+                      placeholder="Vaše meno *"
+                      className={`bg-background ${errors.name ? "border-destructive" : ""}`}
+                      aria-invalid={!!errors.name}
+                    />
+                    {errors.name && (
+                      <p className="text-xs text-destructive">{errors.name}</p>
+                    )}
+                  </div>
+                  <div className="space-y-1">
+                    <Input
+                      name="phone"
+                      type="tel"
+                      value={formData.phone}
+                      onChange={handleChange}
+                      placeholder="Telefónne číslo *"
+                      className={`bg-background ${errors.phone ? "border-destructive" : ""}`}
+                      aria-invalid={!!errors.phone}
+                    />
+                    {errors.phone && (
+                      <p className="text-xs text-destructive">{errors.phone}</p>
+                    )}
+                  </div>
                 </div>
-                <Input
-                  name="email"
-                  type="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  placeholder="Váš email"
-                  className="bg-background"
-                />
-                <Input
-                  name="projectType"
-                  value={formData.projectType}
-                  onChange={handleChange}
-                  placeholder="Typ projektu (napr. rekonštrukcia, novostavba...)"
-                  className="bg-background"
-                />
-                <Textarea
-                  name="message"
-                  value={formData.message}
-                  onChange={handleChange}
-                  placeholder="Opíšte váš projekt alebo otázku..."
-                  rows={4}
-                  required
-                  className="bg-background resize-none"
-                />
+                <div className="space-y-1">
+                  <Input
+                    name="email"
+                    type="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    placeholder="Váš email"
+                    className={`bg-background ${errors.email ? "border-destructive" : ""}`}
+                    aria-invalid={!!errors.email}
+                  />
+                  {errors.email && (
+                    <p className="text-xs text-destructive">{errors.email}</p>
+                  )}
+                </div>
+                <div className="space-y-1">
+                  <Input
+                    name="projectType"
+                    value={formData.projectType}
+                    onChange={handleChange}
+                    placeholder="Typ projektu (napr. rekonštrukcia, novostavba...)"
+                    className={`bg-background ${errors.projectType ? "border-destructive" : ""}`}
+                    aria-invalid={!!errors.projectType}
+                  />
+                  {errors.projectType && (
+                    <p className="text-xs text-destructive">{errors.projectType}</p>
+                  )}
+                </div>
+                <div className="space-y-1">
+                  <Textarea
+                    name="message"
+                    value={formData.message}
+                    onChange={handleChange}
+                    placeholder="Opíšte váš projekt alebo otázku... *"
+                    rows={4}
+                    className={`bg-background resize-none ${errors.message ? "border-destructive" : ""}`}
+                    aria-invalid={!!errors.message}
+                  />
+                  {errors.message && (
+                    <p className="text-xs text-destructive">{errors.message}</p>
+                  )}
+                </div>
                 <Button type="submit" size="lg" className="w-full" disabled={isSubmitting}>
                   {isSubmitting ? (
                     "Odosielam..."
