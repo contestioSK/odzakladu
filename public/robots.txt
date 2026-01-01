@@ -1,8 +1,10 @@
 User-agent: Googlebot
 Allow: /
+Crawl-delay: 1
 
 User-agent: Bingbot
 Allow: /
+Crawl-delay: 1
 
 User-agent: Twitterbot
 Allow: /
@@ -12,5 +14,14 @@ Allow: /
 
 User-agent: *
 Allow: /
+Crawl-delay: 2
 
-Sitemap: https://www.vasadomena.sk/sitemap.xml
+# Disallow admin and private paths
+Disallow: /api/
+Disallow: /admin/
+
+# Sitemap location
+Sitemap: https://www.odzakladu.sk/sitemap.xml
+
+# Host preference
+Host: https://www.odzakladu.sk
