@@ -54,10 +54,7 @@ export const Stats = () => {
               className="text-center"
             >
               <stat.icon className="w-8 h-8 sm:w-10 sm:h-10 text-primary mx-auto mb-2 sm:mb-4" />
-              <span className="text-3xl sm:text-4xl md:text-5xl font-heading font-bold text-primary">
-                <motion.span>{stat.value}</motion.span>
-                {stat.suffix}
-              </span>
+              <AnimatedCounter value={stat.value} suffix={stat.suffix} />
               <p className="text-secondary-foreground/70 mt-1 sm:mt-2 text-xs sm:text-base">{stat.label}</p>
             </motion.div>
           ))}
