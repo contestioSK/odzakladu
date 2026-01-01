@@ -7,6 +7,7 @@ import projectResidential from "@/assets/project-residential.jpg";
 import projectCommercial from "@/assets/project-commercial.jpg";
 import projectIndustrial from "@/assets/project-industrial.jpg";
 import projectLesnaPedagogika from "@/assets/project-lesna-pedagogika.jpg";
+import projectZsSlatina from "@/assets/project-zs-slatina.jpg";
 
 const projects = [
   {
@@ -26,7 +27,7 @@ const projects = [
     description: "Výstavba moderného vodojemu s využitím certifikovaných materiálov SIKA.",
   },
   {
-    image: projectCommercial,
+    image: projectZsSlatina,
     icon: GraduationCap,
     category: "Verejný sektor",
     title: "Základná škola s materskou školou",
