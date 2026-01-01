@@ -92,7 +92,7 @@ export const Process = () => {
               key={index}
               initial={{ opacity: 0, y: 40 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: index * 0.5 }}
+              transition={{ duration: 0.5, delay: index * 0.3 }}
               className="relative"
             >
               <div className="bg-card p-4 sm:p-6 rounded-lg border border-border hover:border-primary/50 transition-all h-full group">
