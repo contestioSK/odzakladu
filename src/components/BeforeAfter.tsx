@@ -1,25 +1,15 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef, useState } from "react";
+import zsSlatinaBeforeImg from "@/assets/zs-slatina-before.jpg";
+import zsSlatinaAfterImg from "@/assets/zs-slatina-after.jpg";
 
 const projects = [
   {
-    title: "Rekonštrukcia fasády",
-    location: "Hriňová",
-    beforeImage: "https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?w=600&h=400&fit=crop",
-    afterImage: "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=600&h=400&fit=crop",
-  },
-  {
-    title: "Zateplenie rodinného domu",
-    location: "Detva",
-    beforeImage: "https://images.unsplash.com/photo-1518780664697-55e3ad937233?w=600&h=400&fit=crop",
-    afterImage: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=600&h=400&fit=crop",
-  },
-  {
-    title: "Kompletná rekonštrukcia",
-    location: "Zvolen",
-    beforeImage: "https://images.unsplash.com/photo-1605276374104-dee2a0ed3cd6?w=600&h=400&fit=crop",
-    afterImage: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&h=400&fit=crop",
+    title: "ZŠ s MŠ Zvolenská Slatina",
+    location: "Zvolenská Slatina",
+    beforeImage: zsSlatinaBeforeImg,
+    afterImage: zsSlatinaAfterImg,
   },
 ];
 
