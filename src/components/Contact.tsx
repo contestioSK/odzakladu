@@ -8,7 +8,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 
 const contactInfo = [
-  { icon: MapPin, label: "Adresa", value: "Doplňte adresu" },
+  { icon: MapPin, label: "Adresa", value: "Lúčna 1765, 962 05 Hriňová" },
   { icon: Phone, label: "Telefón", value: "+421 908 867 350" },
   { icon: Mail, label: "Email", value: "info@odzakladu.sk" },
   { icon: Clock, label: "Pracovná doba", value: "Po - Pi: 7:00 - 16:00" },

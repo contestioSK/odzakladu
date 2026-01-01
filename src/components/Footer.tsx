@@ -91,7 +91,7 @@ export const Footer = () => {
             <ul className="space-y-4">
               <li className="flex items-center gap-3">
                 <MapPin className="w-5 h-5 text-primary flex-shrink-0" />
-                <span>Doplňte adresu</span>
+                <span>Lúčna 1765, 962 05 Hriňová</span>
               </li>
               <li className="flex items-center gap-3">
                 <Phone className="w-5 h-5 text-primary flex-shrink-0" />
